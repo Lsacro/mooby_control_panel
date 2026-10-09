@@ -8,6 +8,7 @@ export default function LoginPage() {
   const [error, setError] = useState(false);
   const [counter, setCounter] = useState(0);
   const [disabled, setDisabled] = useState(false);
+  const [emptyCamps, setEmptyCamps] = useState(false);
 
   const togglePasswordVisibility = (e) => {
     e.preventDefault();
@@ -23,21 +24,31 @@ export default function LoginPage() {
         setError(false);
         setCounter(0);
         setDisabled(false);
-      }, 60000);
+      }, 30000);
       return;
     }
 
     if (user === '' || password === '') {
-      alert('Todos los campos son obligatorios');
+      setEmptyCamps(true);
       return;
     }
 
-    const loginList = {
-      user: 'mooby',
-      password: '12345678',
-    };
+    const loginList = [
+      {
+        user: 'lsacro',
+        password: '12345678',
+      },
+      {
+        user: 'brianna',
+        password: 'ramon1234',
+      },
+    ];
 
-    if (user === loginList.user && password === loginList.password) {
+    const found = loginList.find((item) => {
+      return item.user === user;
+    });
+
+    if (found) {
       window.location.href = '/dashboard';
     } else {
       setError(true);
@@ -102,6 +113,7 @@ export default function LoginPage() {
                   <span className=''>Usaurio</span>
                   <span className='text-[10px] text-outline font-normal'>ID de Colaborador</span>
                 </label>
+
                 <div className='relative flex items-center'>
                   <div
                     className={
@@ -122,7 +134,10 @@ export default function LoginPage() {
                     placeholder='nombre@mooby.co'
                     required=''
                     type='text'
-                    onChange={(e) => setUser(e.target.value)}
+                    onChange={(e) => {
+                      setUser(e.target.value);
+                      setEmptyCamps(false);
+                    }}
                   />
                   {error && (
                     <div className='absolute right-3 flex items-center pointer-events-none text-red-500'>
@@ -130,7 +145,7 @@ export default function LoginPage() {
                     </div>
                   )}
                 </div>
-                {error && (
+                {(error || emptyCamps) && (
                   <div className='flex items-center gap-1 text-xs text-red-600 mt-0.5'>
                     <span className='material-symbols-outlined text-[15px] shrink-0'>warning</span>
                     <span>Este campo es obligatorio. Ingresa usuario de colaborador.</span>
@@ -165,7 +180,10 @@ export default function LoginPage() {
                     placeholder='••••••••'
                     required
                     type={visible ? 'text' : 'password'}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setEmptyCamps(false);
+                    }}
                   />
                   <button
                     aria-label='Ver u ocultar contraseña'
@@ -189,7 +207,7 @@ export default function LoginPage() {
                     )}
                   </button>
                 </div>
-                {error && (
+                {(error || emptyCamps) && (
                   <div className='flex items-center gap-1 text-xs text-red-600 mt-0.5'>
                     <span className='material-symbols-outlined text-[15px] shrink-0'>warning</span>
                     <span>Por favor, ingresa tu contraseña de acceso.</span>
