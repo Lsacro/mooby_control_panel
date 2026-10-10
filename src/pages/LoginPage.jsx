@@ -45,7 +45,7 @@ export default function LoginPage() {
     ];
 
     const found = loginList.find((item) => {
-      return item.user === user;
+      return (item.user === user) & (item.password === password);
     });
 
     if (found) {
