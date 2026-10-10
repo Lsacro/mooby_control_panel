@@ -214,13 +214,13 @@ export default function LoginPage() {
                   </div>
                 )}
               </div>
-              <div className='flex items-center justify-between pt-0.5'>
+              <div className='flex items-center justify-center gap-3 pt-0.5'>
                 <label className='flex items-center gap-2 cursor-pointer select-none'>
                   <input className='w-4 h-4 rounded text-secondary focus:ring-0 accent-secondary cursor-pointer' type='checkbox' />
                   <span className='font-body-sm text-body-sm text-on-surface-variant'>Recordar en este equipo</span>
                 </label>
                 <a
-                  className='font-label-md text-label-md text-primary hover:text-secondary transition-colors underline decoration-secondary decoration-1 underline-offset-2'
+                  className='font-label-md text-label-md text-primary hover:text-secondary transition-colors underline decoration-secondary decoration-1 underline-offset-2 text-right pr-2'
                   href='javascript:void(0)'
                 >
                   ¿Olvidaste tu contraseña?
